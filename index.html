@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resume Selection Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Resume Selection Dashboard</h2>
+        <label for="jobRole">Select Job Role:</label>
+        <select id="jobRole">
+            <option value="">All</option>
+            <option value="python_developer">Python Developer</option>
+            <option value="web_developer">Web Developer</option>
+        </select>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Skills</th>
+                    <th>Score</th>
+                    <th>Role</th>
+                </tr>
+            </thead>
+            <tbody id="resumeTable"></tbody>
+        </table>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
