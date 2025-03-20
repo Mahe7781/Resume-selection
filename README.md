@@ -1,61 +1,63 @@
-### 🔍 Overview
-This project is an intelligent resume parser and scoring system that uses Natural Language Processing (NLP) and Machine Learning (Random Forest) to:
-- Extract relevant information from PDF resumes (email, phone, skills).
-- Score candidates based on their skills using a trained ML model.
-- Store parsed and scored data into a MySQL database.
+
+# Resume Screening System with Machine Learning and Node.js Integration
+
+## 🔍 Overview
+This project is a hybrid resume parsing system using:
+- **Python ML (Random Forest)** for intelligent resume scoring.
+- **Node.js + Express.js** backend for API handling.
+- **MySQL** for data storage.
+- **HTML frontend** dashboard to visualize parsed resumes.
 
 ---
 
-### ⚙ Technologies Used
-- **Python**
-- **NLTK** - Tokenization and Stopword Removal
-- **PDFMiner.six** - Text extraction from PDF resumes
-- **MySQL Connector** - Database operations
-- **Scikit-Learn** - Random Forest Classifier for resume scoring
-- **Joblib** - Model and vectorizer persistence
-
----
-
-### 📁 Project Structure
+## 📂 Project Structure
 ```
-├── resume_parser.py      # Main code file with ML-based resume parser
-├── ml_model.pkl          # Trained Random Forest model (auto-generated)
-├── vectorizer.pkl        # Vectorizer used for scoring resumes (auto-generated)
-├── resumes/              # Folder to place PDF resumes
-└── README.md             # Project description and setup guide
+├── python/
+│   ├── resume_parser.py       # ML resume parser + DB insertion
+│   ├── ml_model.pkl           # Trained Random Forest model
+│   ├── vectorizer.pkl         # Vectorizer for skills
+│   └── resumes/               # Folder for uploaded resumes
+│
+├── nodejs-backend/
+│   ├── app.js                 # Node.js Express backend
+│   ├── routes/
+│   │   └── resume.js          # API endpoint to trigger resume_parser.py
+│   └── package-lock.json
+│
+├── frontend/
+│   ├── index.html             # Resume Selection Dashboard
+│   └── styles.css, script.js  # UI styling and logic
 ```
 
 ---
 
-### 💡 Features
-- Smart resume parsing using NLP.
-- Resume scoring powered by a Random Forest model trained on labeled skill sets.
-- Minimal effort needed to retrain and improve accuracy.
-- Auto-creation of `ml_model.pkl` and `vectorizer.pkl` if not found.
-- MySQL database integration for storage and analysis.
+## ⚙ Technology Stack
+- Python 3.11+
+- Scikit-learn, NLTK, PDFMiner, Joblib
+- Node.js + Express.js
+- MySQL Database
+- HTML, CSS, JS (Frontend)
 
 ---
 
-### 🔧 How to Run
+## 🔧 Setup Instructions
 
-#### 1. Install Required Packages
+### ✅ Python Setup
+Install dependencies:
 ```bash
 pip install nltk pdfminer.six mysql-connector-python scikit-learn joblib
 ```
 
-#### 2. One-Time NLTK Setup
-These will auto-download, but you can also run manually:
+Download NLTK data:
 ```python
 import nltk
 nltk.download('punkt')
 nltk.download('stopwords')
 ```
 
-#### 3. Setup MySQL
-Make sure you have a MySQL database and table created:
+Create MySQL database:
 ```sql
 CREATE DATABASE resume_db;
-
 CREATE TABLE resumes (
     id INT AUTO_INCREMENT PRIMARY KEY,
     email VARCHAR(255),
@@ -66,13 +68,43 @@ CREATE TABLE resumes (
 );
 ```
 
-#### 4. Add PDF Resumes
-Put your resumes in the `resumes/` folder.
+Test parser manually:
+```bash
+python python/resume_parser.py
+```
 
-#### 5. Run the Script
+---
 
--python resume_parser.py
+### ✅ Node.js Setup
+Install dependencies:
+```bash
+npm install
+```
 
+Trigger Python parsing from Node.js (in `resume.js`):
+```js
+const { exec } = require('child_process');
+exec('python ../python/resume_parser.py', ...);
+```
 
-### 📈 Improving Accuracy
-You can modify the `train_ml_model()` function in the script to include more training samples and better labels for improved model performance.
+Start Node.js server:
+```bash
+node app.js
+```
+
+---
+
+### ✅ Frontend Dashboard
+Open `index.html` to view and filter parsed resumes from MySQL database.
+
+---
+
+## ✨ Future Enhancements
+- ML job-role classification
+- REST API to upload and score resumes dynamically
+- Advanced analytics dashboard
+
+---
+
+## 📬 Contact
+For questions or collaboration, feel free to connect!
